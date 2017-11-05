@@ -1,3 +1,5 @@
+<img src="https://github.com/Kotlin/anko/blob/master/doc/logo.png" alt="Anko logo" height="101" width="220" />
+
 # AnkoAdapterBuilder
 Easy implementable recyclerview adapter like pro
 
