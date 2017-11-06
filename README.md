@@ -42,10 +42,20 @@ class UserListItemView(context: Context) : AnkoListItemView<UserListItemView.Use
 ```kotlin
 data class User(var name : String)
 
-AnkoAdapterBuilder<User, UserListItemView.UserListItemViewHolder>()
-      .setData(arrayListOf(User("Harry"), User("Tom"), User("Jane"))) // Set List Data
-      .setView(UserListItemView(this)) // Set View
-      .setOnItemClickListener { user -> toast("User${adapterPosition} : ${user.name} Selected") } // Click Listener
-      .bindData { user -> nameTextView.text = user.name } // Bind data to view
-      .attatchToRecyclerView(recyclerView) // to Recyclerview
+lateinit var adapterBuilder: AdapterBuilder<User, UserListItemView.UserListItemViewHolder>
+
+override fun onCreate() {
+
+        // Add Initial Data
+        adapterBuilder = AdapterBuilder<User, UserListItemView.UserListItemViewHolder>(listOf(User("Harry"), User("Tom")))
+        adapterBuilder
+                .setOnDataChangedListener { toast("${it.size} Users") }
+                .setOnItemClickListener { adapterBuilder.removeData(it) } // Remove Data when Clicked
+                .bindData { nameTextView.text = it.name } // Bind Data to View
+                .attatchToRecyclerView(LinearLayoutManager(this@MainActivity), recyclerView)
+        
+        // Add New Data
+        adapterBuilder.addData(User("Alice"))
+        adapterBuilder.addData(User("Timmy"))
+}
 ```

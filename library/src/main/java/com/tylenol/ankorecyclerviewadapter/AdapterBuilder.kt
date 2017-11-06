@@ -11,6 +11,12 @@ open class AdapterBuilder<Model : Any, ViewHolder : RecyclerView.ViewHolder>(ini
 
     init {
         setHasStableIds(true)
+        registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
+            override fun onChanged() {
+                super.onChanged()
+                itemChangedListener.invoke(list)
+            }
+        })
     }
 
     fun setData(newList: ArrayList<Model>) = this.apply {
@@ -41,15 +47,22 @@ open class AdapterBuilder<Model : Any, ViewHolder : RecyclerView.ViewHolder>(ini
         this.itemClickListener = itemClickListener
     }
 
+    fun setOnDataChangedListener(itemChangedListener: (List<Model>) -> Unit) = this.apply {
+        this.itemChangedListener = itemChangedListener
+    }
+
     fun bindData(bind: (ViewHolder.(Model) -> Unit)) = this.apply {
         this.bind = bind
     }
 
-    fun attatchToRecyclerView(recyclerView: RecyclerView) {
+    fun attatchToRecyclerView(layoutManager: RecyclerView.LayoutManager, recyclerView: RecyclerView) {
+        recyclerView.layoutManager = layoutManager
         recyclerView.adapter = this
     }
 
     private lateinit var view: ListItemView<ViewHolder>
+
+    private var itemChangedListener: (List<Model>) -> Unit = {}
 
     private var itemClickListener: ViewHolder.(Model) -> Unit = { _ -> }
 
