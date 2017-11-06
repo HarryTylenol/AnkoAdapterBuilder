@@ -9,7 +9,7 @@ import org.jetbrains.anko.*
 /**
  * Created by baghyeongi on 2017. 11. 5..
  */
-class UserListItemView(context: Context) : AnkoListItemView<UserListItemView.UserListItemViewHolder>(context) {
+class UserListItemView(context: Context) : ListItemView<UserListItemView.UserListItemViewHolder>(context) {
 
     class UserListItemViewHolder(view: View, var nameTextView: TextView) : RecyclerView.ViewHolder(view)
 

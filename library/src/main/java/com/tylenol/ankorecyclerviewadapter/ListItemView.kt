@@ -8,7 +8,7 @@ import org.jetbrains.anko.AnkoContext
 /**
  * Created by baghyeongi on 2017. 11. 5..
  */
-abstract class AnkoListItemView<ViewHolder : RecyclerView.ViewHolder>(var context: Context) : AnkoComponent<Context> {
+abstract class ListItemView<ViewHolder : RecyclerView.ViewHolder>(var context: Context) : AnkoComponent<Context> {
 
     fun getItemViewHolder() = createView(AnkoContext.Companion.create(context)).tag as ViewHolder
 
