@@ -6,7 +6,7 @@ Easy implementable recyclerview adapter like pro
 ## How to implement?
 
 I did not uploaded this library on maven,  
-Please add manually class in your project.
+Please add class manually in your project.
 
 ## How to use?
 
